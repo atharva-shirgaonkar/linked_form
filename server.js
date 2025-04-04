@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const nodemailer = require('nodemailer'); // Import Nodemailer
+const nodemailer = require('nodemailer');
 
 const app = express();
 const PORT = 3000;
@@ -9,15 +9,15 @@ const PORT = 3000;
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-// Serve static files (like your HTML form)
-app.use(express.static('Linked Form'));
+// Serve static files (corrected path)
+app.use(express.static(__dirname));
 
 // Configure Nodemailer transporter
 const transporter = nodemailer.createTransport({
-    service: 'gmail', // Use your email provider (e.g., Gmail, Outlook, etc.)
+    service: 'gmail',
     auth: {
-        user: 'atharva10711@gmail.com', // Replace with your email
-        pass: 'tuvb cgei fcyc kjdz'  // Replace with your email password or app password
+        user: 'atharva10711@gmail.com',
+        pass: 'tuvb cgei fcyc kjdz'
     }
 });
 
@@ -27,15 +27,13 @@ app.post('/api/submit-form', (req, res) => {
 
     console.log('Form Data:', { fullname, email, message });
 
-    // Email options
     const mailOptions = {
-        from: 'your-email@gmail.com', // Sender email
-        to: 'atharva10711@gmail.com',  // Replace with the recipient email
+        from: 'your-email@gmail.com',
+        to: 'atharva10711@gmail.com',
         subject: 'New Contact Form Submission',
         text: `You have a new message from ${fullname} (${email}):\n\n${message}`
     };
 
-    // Send email
     transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
             console.error('Error sending email:', error);
