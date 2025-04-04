@@ -24,24 +24,7 @@ const transporter = nodemailer.createTransport({
 // Handle form submission
 app.post('/api/submit-form', (req, res) => {
     const { fullname, email, message } = req.body;
-
-    console.log('Form Data:', { fullname, email, message });
-
-    const mailOptions = {
-        from: 'your-email@gmail.com',
-        to: 'atharva10711@gmail.com',
-        subject: 'New Contact Form Submission',
-        text: `You have a new message from ${fullname} (${email}):\n\n${message}`
-    };
-
-    transporter.sendMail(mailOptions, (error, info) => {
-        if (error) {
-            console.error('Error sending email:', error);
-            return res.status(500).json({ success: false, message: 'Failed to send email.' });
-        }
-        console.log('Email sent:', info.response);
-        res.json({ success: true, message: 'Form submitted and email sent successfully!' });
-    });
+    // Handle form submission
 });
 
 // Start the server
